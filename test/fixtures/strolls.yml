@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: MyString
+  city: one
+  dogsitter: one
+  dog: one
+
+two:
+  location: MyString
+  city: two
+  dogsitter: two
+  dog: two
