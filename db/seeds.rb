@@ -8,29 +8,38 @@
 
 require 'faker'
 
+# Creation de 3 villes
 3.times do
   city = City.create(city_name: Faker::GameOfThrones.city)
 end
 
+# Creation de 15 Dogsitters
 15.times do
   dogsitter = Dogsitter.create(name: Faker::GameOfThrones.character, city_id: City.all.sample.id)
-
 end
 
+# Creation de 45 Dogs
 45.times do
   dog = Dog.create(name: Faker::Dog.name, city_id: City.all.sample.id)
-
 end
 
+# Boucle pour creation de 12 Strolls
 City.all.each do |cityname|
   4.times do
-  randomdog = Dog.all.sample
-  randomsitter = Dogsitter.all.sample
-  
-  while randomdog.city_id != randomsitter.city_id
     randomdog = Dog.all.sample
     randomsitter = Dogsitter.all.sample
-  end
-  stroll = Stroll.create(location: , city_id: cityname.id, dogsitter_id: randomdog.id, dog_id: randomsitter.id)
+
+    # Boucle pour trouver un chien provenant de la bonne ville
+    while randomdog.city_id != cityname.id
+      randomdog = Dog.all.sample
+    end
+
+    # Boucle pour trouver un dogsitter provenant de la bonne ville
+    while randomsitter.city_id != cityname.id
+      randomsitter = Dogsitter.all.sample
+    end
+    
+    # Creation du stroll
+    stroll = Stroll.create(location: Faker::Hobbit.location, city_id: cityname.id, dogsitter_id: randomsitter.id, dog_id: randomdog.id)
   end
 end
